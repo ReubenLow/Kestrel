@@ -64,7 +64,7 @@ Estimates are rough. "Saving" means milliseconds per frame on the reference PC u
 
 | Item | Saving | Effort | Status | How to start |
 | --- | --- | --- | --- | --- |
-| PGO builds of `main` (Windows and Linux) | 15-20% fps (measured +21%) | 1-2 days per OS | Linux works, Windows under test | CMake option `KYTY_PGO` in `cmake/KytyOptimization.cmake`. Build with `GENERATE`, play the three scenes, merge the profile, rebuild with `USE`. |
+| PGO builds of `main` (Windows and Linux) | 15-20% fps (measured +21%) | 1-2 days per OS | Linux works. Windows works: +11-21% per scene on a 9800X3D, 3060 numbers pending (see [PGO.md](PGO.md)) | CMake option `KYTY_PGO` in `cmake/KytyOptimization.cmake`. Build with `GENERATE`, play the three scenes, merge the profile, rebuild with `USE`. |
 | Queue-drain fix from upstream (nmzik, KytyPS5 commit `840b9f57`). The game thread waits about 13 ms per frame at suspend points in pre-plaza. | up to ~13 ms of waiting in pre-plaza | ~1 day | Ported, needs A/B | `src/graphics/guest_gpu/graphicsRun.cpp` and `src/graphics/guest_gpu/command_processor`. Run the scorecard with and without it. |
 | Recording and submission worker thread. Design from the 3-stage pipeline in TheCruZ/KytyPS5-GTA. | ~2.5 ms | 1.5-2 weeks | Not started | `src/graphics/host_gpu/renderer/commandScheduler.cpp` and `renderDraw.cpp`. |
 | SRT walk JIT. An x86-64 JIT of the shader resource table (SRT) walk. | ~1.5-2 ms | 1-2 weeks | Prototype exists on an older line. Needs a redesign for the current `SrtWalker`. Measure first. | `src/graphics/shader/recompiler/ir/passes/SrtWalker.cpp` and `SrtWalker.h`. |
